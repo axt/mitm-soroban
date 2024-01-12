@@ -79,9 +79,11 @@ def process_json(method, json_data):
     if method == "getTransaction":
         if "result" in json_data:
             if "status" in json_data["result"]:
-                if json_data["result"]["status"] == "SUCCESS":
+                if "resultMetaXdr" in json_data["result"]:
                     json_data["result"]["resultMetaXdr"] = xdr_to_json('TransactionMeta', json_data["result"]["resultMetaXdr"])
+                if "envelopeXdr" in json_data["result"]:
                     json_data["result"]["envelopeXdr"] = xdr_to_json('TransactionEnvelope', json_data["result"]["envelopeXdr"])
+                if "resultXdr" in json_data["result"]:
                     json_data["result"]["resultXdr"] = xdr_to_json('TransactionResult', json_data["result"]["resultXdr"])
     if method == "getLedgerEntries":
         if "result" in json_data:
